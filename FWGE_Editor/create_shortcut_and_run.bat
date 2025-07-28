@@ -1,57 +1,77 @@
 @echo off
 setlocal enabledelayedexpansion
 
-REM Путь к проекту
-set "PROJECT_DIR=%~dp0"
-set "SLN_FILE=%PROJECT_DIR%FWGE_Editor.sln"
-set "CSPROJ_FILE=%PROJECT_DIR%FWGE_Editor.csproj"
+REM Корневая папка — папка, откуда запускается скрипт
+set "ROOT_DIR=%~dp0"
 set "BUILD_CONFIG=Debug"
+set "SHORTCUT_NAME=FWGE_Editor.lnk"
+set "ROAMING_DIR=%APPDATA%\MyProjectBuild"
 
-REM Проверка наличия .sln или .csproj
-if exist "%SLN_FILE%" (
-    echo [INFO] Building solution: FWGE_Editor.sln
-    dotnet build "%SLN_FILE%" --configuration %BUILD_CONFIG%
-) else if exist "%CSPROJ_FILE%" (
-    echo [INFO] Building project: FWGE_Editor.csproj
-    dotnet build "%CSPROJ_FILE%" --configuration %BUILD_CONFIG%
-) else (
-    echo [ERROR] Не найден ни .sln, ни .csproj в %PROJECT_DIR%
+set "CS_PROJ="
+set "EXE_PATH="
+
+echo [ИНФО] Поиск .csproj...
+for /r "%ROOT_DIR%" %%f in (*.csproj) do (
+    set "CS_PROJ=%%f"
+    echo [ИНФО] Найден .csproj: !CS_PROJ!
+    goto build
+)
+
+echo [ОШИБКА] .csproj не найден!
+pause
+exit /b
+
+:build
+echo [ИНФО] Сборка проекта...
+dotnet build "!CS_PROJ!" --configuration %BUILD_CONFIG%
+if errorlevel 1 (
+    echo [ОШИБКА] Сборка завершилась с ошибкой!
     pause
     exit /b
 )
 
-REM Поиск скомпилированного EXE
-for /D %%f in ("%PROJECT_DIR%bin\%BUILD_CONFIG%\net*") do (
-    if exist "%%f\FWGE_Editor.exe" (
-        set "EXE_PATH=%%f\FWGE_Editor.exe"
-        goto found_exe
-    )
+echo [ИНФО] Поиск скомпилированного .exe...
+for /r "%ROOT_DIR%bin" %%f in (*.exe) do (
+    set "EXE_PATH=%%f"
 )
 
-echo [ERROR] Не удалось найти FWGE_Editor.exe после сборки!
-pause
-exit /b
+if not defined EXE_PATH (
+    echo [ОШИБКА] .exe не найден после сборки!
+    pause
+    exit /b
+)
 
-:found_exe
-echo [INFO] EXE найден по пути: %EXE_PATH%
+echo [ИНФО] Найден .exe: !EXE_PATH!
 
-REM Путь к ярлыку на рабочем столе
-set "SHORTCUT_NAME=FWGE_Editor.lnk"
-set "DESKTOP=%USERPROFILE%\Desktop"
-set "SHORTCUT_PATH=%DESKTOP%\%SHORTCUT_NAME%"
+echo [ИНФО] Удаляем старую папку сборки: %ROAMING_DIR%
+rd /s /q "%ROAMING_DIR%"
 
-REM Создание ярлыка через PowerShell
-echo [INFO] Создаём ярлык на рабочем столе...
+echo [ИНФО] Копируем проект из "%ROOT_DIR%" в "%ROAMING_DIR%"...
+robocopy "%ROOT_DIR%" "%ROAMING_DIR%" /E /COPY:DAT /R:3 /W:5 >nul
+if errorlevel 8 (
+    echo [ОШИБКА] Ошибка копирования файлов!
+    pause
+    exit /b
+)
+
+echo [ИНФО] Создаем ярлык на рабочем столе...
+
 powershell -NoProfile -Command ^
-    "$s = (New-Object -COM WScript.Shell).CreateShortcut('%SHORTCUT_PATH%');" ^
-    "$s.TargetPath = '%EXE_PATH%';" ^
-    "$s.WorkingDirectory = '%~dp0';" ^
-    "$s.IconLocation = '%EXE_PATH%,0';" ^
-    "$s.Save()"
+    "$WshShell = New-Object -ComObject WScript.Shell; " ^
+    "$Shortcut = $WshShell.CreateShortcut('%USERPROFILE%\Desktop\%SHORTCUT_NAME%'); " ^
+    "$Shortcut.TargetPath = '%EXE_PATH%'; " ^
+    "$Shortcut.WorkingDirectory = '%ROAMING_DIR%'; " ^
+    "$Shortcut.IconLocation = '%EXE_PATH%,0'; " ^
+    "$Shortcut.Save();"
 
-REM Запуск exe
-echo [INFO] Запускаем FWGE_Editor...
-start "" "%EXE_PATH%"
+if exist "%USERPROFILE%\Desktop\%SHORTCUT_NAME%" (
+    echo [УСПЕХ] Ярлык создан на рабочем столе.
+) else (
+    echo [ОШИБКА] Ярлык не создан.
+)
 
-echo [DONE] Ярлык создан и редактор запущен.
+echo [ИНФО] Запуск: !EXE_PATH!
+start "" "!EXE_PATH!"
+
+echo [ГОТОВО]
 pause
