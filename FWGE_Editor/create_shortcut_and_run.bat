@@ -1,77 +1,63 @@
 @echo off
 setlocal enabledelayedexpansion
 
-REM Корневая папка — папка, откуда запускается скрипт
-set "ROOT_DIR=%~dp0"
-set "BUILD_CONFIG=Debug"
+rem Путь к папке проекта (внутри распакованного архива)
+set "PROJECT_DIR=C:\Users\admin\Downloads\editor_v-0-1-0-main\editor_v-0-1-0-main\FWGE_Editor"
+
+rem Путь к распакованной папке (для удаления)
+set "UNZIP_DIR=C:\Users\admin\Downloads\editor_v-0-1-0-main"
+
+rem Путь к папке назначения с нужной структурой
+set "ROAMING_DIR=%APPDATA%\FWGE_Editor\version\0_1_0"
+
+rem Путь к exe внутри папки назначения
+set "EXE_PATH=%ROAMING_DIR%\FWGE_Editor.exe"
+
+rem Путь к рабочему столу пользователя
+set "DESKTOP=%USERPROFILE%\Desktop"
+
+rem Имя ярлыка
 set "SHORTCUT_NAME=FWGE_Editor.lnk"
-set "ROAMING_DIR=%APPDATA%\MyProjectBuild"
 
-set "CS_PROJ="
-set "EXE_PATH="
+echo [INFO] Проверяем папку назначения "%ROAMING_DIR%"...
 
-echo [ИНФО] Поиск .csproj...
-for /r "%ROOT_DIR%" %%f in (*.csproj) do (
-    set "CS_PROJ=%%f"
-    echo [ИНФО] Найден .csproj: !CS_PROJ!
-    goto build
-)
-
-echo [ОШИБКА] .csproj не найден!
-pause
-exit /b
-
-:build
-echo [ИНФО] Сборка проекта...
-dotnet build "!CS_PROJ!" --configuration %BUILD_CONFIG%
-if errorlevel 1 (
-    echo [ОШИБКА] Сборка завершилась с ошибкой!
-    pause
-    exit /b
-)
-
-echo [ИНФО] Поиск скомпилированного .exe...
-for /r "%ROOT_DIR%bin" %%f in (*.exe) do (
-    set "EXE_PATH=%%f"
-)
-
-if not defined EXE_PATH (
-    echo [ОШИБКА] .exe не найден после сборки!
-    pause
-    exit /b
-)
-
-echo [ИНФО] Найден .exe: !EXE_PATH!
-
-echo [ИНФО] Удаляем старую папку сборки: %ROAMING_DIR%
-rd /s /q "%ROAMING_DIR%"
-
-echo [ИНФО] Копируем проект из "%ROOT_DIR%" в "%ROAMING_DIR%"...
-robocopy "%ROOT_DIR%" "%ROAMING_DIR%" /E /COPY:DAT /R:3 /W:5 >nul
-if errorlevel 8 (
-    echo [ОШИБКА] Ошибка копирования файлов!
-    pause
-    exit /b
-)
-
-echo [ИНФО] Создаем ярлык на рабочем столе...
-
-powershell -NoProfile -Command ^
-    "$WshShell = New-Object -ComObject WScript.Shell; " ^
-    "$Shortcut = $WshShell.CreateShortcut('%USERPROFILE%\Desktop\%SHORTCUT_NAME%'); " ^
-    "$Shortcut.TargetPath = '%EXE_PATH%'; " ^
-    "$Shortcut.WorkingDirectory = '%ROAMING_DIR%'; " ^
-    "$Shortcut.IconLocation = '%EXE_PATH%,0'; " ^
-    "$Shortcut.Save();"
-
-if exist "%USERPROFILE%\Desktop\%SHORTCUT_NAME%" (
-    echo [УСПЕХ] Ярлык создан на рабочем столе.
+if not exist "%ROAMING_DIR%" (
+    echo [INFO] Папка не найдена, создаём...
+    mkdir "%ROAMING_DIR%"
 ) else (
-    echo [ОШИБКА] Ярлык не создан.
+    echo [INFO] Папка найдена, очищаем...
+    rd /s /q "%ROAMING_DIR%"
+    mkdir "%ROAMING_DIR%"
 )
 
-echo [ИНФО] Запуск: !EXE_PATH!
-start "" "!EXE_PATH!"
+echo [INFO] Копируем файлы из проекта...
+robocopy "%PROJECT_DIR%" "%ROAMING_DIR%" /MIR /COPY:DAT /R:3 /W:5
 
-echo [ГОТОВО]
-pause
+if errorlevel 8 (
+    echo [ERROR] robocopy завершился с ошибками!
+    exit /b 1
+)
+
+echo [SUCCESS] Копирование успешно завершено.
+
+echo [INFO] Удаляем распакованную папку "%UNZIP_DIR%"...
+rd /s /q "%UNZIP_DIR%"
+if errorlevel 1 (
+    echo [ERROR] Не удалось удалить распакованную папку "%UNZIP_DIR%".
+) else (
+    echo [SUCCESS] Распакованная папка успешно удалена.
+)
+
+echo [INFO] Создаём ярлык на рабочем столе...
+
+powershell -NoProfile -ExecutionPolicy Bypass -Command ^
+    "$WScriptShell = New-Object -ComObject WScript.Shell; $Shortcut = $WScriptShell.CreateShortcut('%DESKTOP%\%SHORTCUT_NAME%'); $Shortcut.TargetPath = '%EXE_PATH%'; $Shortcut.WorkingDirectory = '%ROAMING_DIR%'; $Shortcut.WindowStyle = 1; $Shortcut.Description = 'Запуск FWGE Editor'; $Shortcut.Save()"
+
+if %ERRORLEVEL% EQU 0 (
+    echo [SUCCESS] Ярлык успешно создан на рабочем столе.
+) else (
+    echo [ERROR] Не удалось создать ярлык.
+    exit /b 1
+)
+
+exit /b 0
