@@ -1,17 +1,21 @@
 @echo off
 setlocal enabledelayedexpansion
 
-rem Путь к папке проекта (внутри распакованного архива)
+rem Путь к корню проекта с исходниками
 set "PROJECT_DIR=C:\Users\admin\Downloads\editor_v-0-1-0-main\editor_v-0-1-0-main\FWGE_Editor"
 
 rem Путь к распакованной папке (для удаления)
 set "UNZIP_DIR=C:\Users\admin\Downloads\editor_v-0-1-0-main"
 
-rem Путь к папке назначения с нужной структурой
-set "ROAMING_DIR=%APPDATA%\FWGE_Editor\version\0_1_0"
+rem Папка с опубликованным билдом внутри проекта
+set "PUBLISH_DIR=%PROJECT_DIR%\bin\Release\net6.0\publish"
 
-rem Путь к exe внутри папки назначения
-set "EXE_PATH=%ROAMING_DIR%\FWGE_Editor.exe"
+rem Путь к папке назначения с нужной структурой
+set "TARGET_DIR=%APPDATA%\FWGE_Editor\version\0_1_0"
+
+rem Путь к exe внутри папки назначения (замени имя, если нужно)
+set "EXE_NAME=FWGE_Editor.exe"
+set "EXE_PATH=%TARGET_DIR%\%EXE_NAME%"
 
 rem Путь к рабочему столу пользователя
 set "DESKTOP=%USERPROFILE%\Desktop"
@@ -19,26 +23,36 @@ set "DESKTOP=%USERPROFILE%\Desktop"
 rem Имя ярлыка
 set "SHORTCUT_NAME=FWGE_Editor.lnk"
 
-echo [INFO] Проверяем папку назначения "%ROAMING_DIR%"...
+echo [INFO] Запускаем dotnet publish для сборки релиза...
 
-if not exist "%ROAMING_DIR%" (
-    echo [INFO] Папка не найдена, создаём...
-    mkdir "%ROAMING_DIR%"
-) else (
-    echo [INFO] Папка найдена, очищаем...
-    rd /s /q "%ROAMING_DIR%"
-    mkdir "%ROAMING_DIR%"
+pushd "%PROJECT_DIR%"
+dotnet publish -c Release -o "%PUBLISH_DIR%"
+if errorlevel 1 (
+    echo [ERROR] Сборка проекта через dotnet publish не удалась!
+    popd
+    exit /b 1
 )
+popd
 
-echo [INFO] Копируем файлы из проекта...
-robocopy "%PROJECT_DIR%" "%ROAMING_DIR%" /MIR /COPY:DAT /R:3 /W:5
+echo [SUCCESS] Сборка успешно завершена.
+
+echo [INFO] Проверяем папку назначения "%TARGET_DIR%"...
+
+if exist "%TARGET_DIR%" (
+    echo [INFO] Папка найдена, очищаем...
+    rd /s /q "%TARGET_DIR%"
+)
+mkdir "%TARGET_DIR%"
+
+echo [INFO] Копируем файлы билда в папку назначения...
+robocopy "%PUBLISH_DIR%" "%TARGET_DIR%" /MIR /COPY:DAT /R:3 /W:5
 
 if errorlevel 8 (
     echo [ERROR] robocopy завершился с ошибками!
     exit /b 1
 )
 
-echo [SUCCESS] Копирование успешно завершено.
+echo [SUCCESS] Копирование билда успешно завершено.
 
 echo [INFO] Удаляем распакованную папку "%UNZIP_DIR%"...
 rd /s /q "%UNZIP_DIR%"
@@ -51,7 +65,7 @@ if errorlevel 1 (
 echo [INFO] Создаём ярлык на рабочем столе...
 
 powershell -NoProfile -ExecutionPolicy Bypass -Command ^
-    "$WScriptShell = New-Object -ComObject WScript.Shell; $Shortcut = $WScriptShell.CreateShortcut('%DESKTOP%\%SHORTCUT_NAME%'); $Shortcut.TargetPath = '%EXE_PATH%'; $Shortcut.WorkingDirectory = '%ROAMING_DIR%'; $Shortcut.WindowStyle = 1; $Shortcut.Description = 'Запуск FWGE Editor'; $Shortcut.Save()"
+    "$WScriptShell = New-Object -ComObject WScript.Shell; $Shortcut = $WScriptShell.CreateShortcut('%DESKTOP%\%SHORTCUT_NAME%'); $Shortcut.TargetPath = '%EXE_PATH%'; $Shortcut.WorkingDirectory = '%TARGET_DIR%'; $Shortcut.WindowStyle = 1; $Shortcut.Description = 'Запуск FWGE Editor'; $Shortcut.Save()"
 
 if %ERRORLEVEL% EQU 0 (
     echo [SUCCESS] Ярлык успешно создан на рабочем столе.
