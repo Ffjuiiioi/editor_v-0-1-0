@@ -1,14 +1,23 @@
 @echo off
 setlocal enabledelayedexpansion
 
-set "PROJECT_DIR=C:\Users\admin\Downloads\editor_v-0-1-0-main\editor_v-0-1-0-main\FWGE_Editor"
-set "UNZIP_DIR=C:\Users\admin\Downloads\editor_v-0-1-0-main"
+REM Определяем папку, где лежит этот батник
+set "SCRIPT_DIR=%~dp0"
+REM Убираем завершающий слэш (если есть)
+set "SCRIPT_DIR=%SCRIPT_DIR:~0,-1%"
+
+REM Указываем путь к проекту, если батник лежит в папке FWGE_Editor
+set "PROJECT_DIR=%SCRIPT_DIR%"
+
+REM Пути для остальных операций
 set "PUBLISH_DIR=%PROJECT_DIR%\bin\Release\net6.0\publish"
 set "TARGET_DIR=%APPDATA%\FWGE_Editor\version\0_1_0"
 set "EXE_NAME=FWGE_Editor.exe"
 set "EXE_PATH=%TARGET_DIR%\%EXE_NAME%"
 set "DESKTOP=%USERPROFILE%\Desktop"
 set "SHORTCUT_NAME=FWGE_Editor.lnk"
+
+echo [INFO] PROJECT_DIR установлен в "%PROJECT_DIR%"
 
 echo [INFO] Запускаем dotnet publish для сборки релиза...
 
@@ -55,7 +64,14 @@ if not exist "%EXE_PATH%" (
 
 echo [INFO] Создаём ярлык на рабочем столе...
 
-powershell -NoProfile -ExecutionPolicy Bypass -Command "$WScriptShell = New-Object -ComObject WScript.Shell; $Shortcut = $WScriptShell.CreateShortcut('%DESKTOP%\%SHORTCUT_NAME%'); $Shortcut.TargetPath = '%EXE_PATH%'; $Shortcut.WorkingDirectory = '%TARGET_DIR%'; $Shortcut.WindowStyle = 1; $Shortcut.Description = 'Запуск FWGE Editor'; $Shortcut.Save()"
+powershell -NoProfile -ExecutionPolicy Bypass -Command ^
+"$WScriptShell = New-Object -ComObject WScript.Shell; ^
+$Shortcut = $WScriptShell.CreateShortcut('%DESKTOP%\%SHORTCUT_NAME%'); ^
+$Shortcut.TargetPath = '%EXE_PATH%'; ^
+$Shortcut.WorkingDirectory = '%TARGET_DIR%'; ^
+$Shortcut.WindowStyle = 1; ^
+$Shortcut.Description = 'Запуск FWGE Editor'; ^
+$Shortcut.Save()"
 
 if %ERRORLEVEL% EQU 0 (
     echo [SUCCESS] Ярлык успешно создан на рабочем столе.
@@ -65,10 +81,10 @@ if %ERRORLEVEL% EQU 0 (
     exit /b 1
 )
 
-echo [INFO] Удаляем распакованную папку "%UNZIP_DIR%"...
-rd /s /q "%UNZIP_DIR%"
+echo [INFO] Удаляем распакованную папку "%PROJECT_DIR%\.."
+rd /s /q "%PROJECT_DIR%\.."
 if errorlevel 1 (
-    echo [ERROR] Не удалось удалить распакованную папку "%UNZIP_DIR%".
+    echo [ERROR] Не удалось удалить распакованную папку "%PROJECT_DIR%\..".
 ) else (
     echo [SUCCESS] Распакованная папка успешно удалена.
 )
