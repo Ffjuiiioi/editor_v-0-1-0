@@ -1,0 +1,973 @@
+<UserControl x:Class="FWGE_Editor.Editor_Ui.HeaderMenu"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Height="35" VerticalAlignment="Top">
+    <Grid>
+        <Menu Height="35" VerticalAlignment="Top" Padding="4" Background="#FFF">
+            <Menu.Resources>
+                <Style TargetType="MenuItem">
+                    <Setter Property="FontSize" Value="13"/>
+                    <Setter Property="Padding" Value="4"/>
+                </Style>
+            </Menu.Resources>
+
+            <!-- FILE MENU -->
+            <MenuItem Header="_File">
+                <MenuItem Header="New Scene"/>
+                <MenuItem Header="Open Scene"/>
+                <MenuItem Header="Open Recent Scene">
+                    <MenuItem Header="SampleScene (from Scenes)"/>
+                </MenuItem>
+                <MenuItem Header="Save"/>
+                <MenuItem Header="Save As..."/>
+                <MenuItem Header="Save As Scene Template..."/>
+                <Separator/>
+                <MenuItem Header="New Project..."/>
+                <MenuItem Header="Open Project..."/>
+                <MenuItem Header="Save Project"/>
+                <Separator/>
+                <MenuItem Header="Build Profiles"/>
+                <MenuItem Header="Build And Run"/>
+                <Separator/>
+                <MenuItem Header="Exit"/>
+            </MenuItem>
+
+            <!-- EDIT MENU -->
+            <MenuItem Header="_Edit">
+                <MenuItem Header="Undo Select Global Light 2D (Gam...)"/>
+                <MenuItem Header="Redo"/>
+                <MenuItem Header="Undo History"/>
+                <Separator/>
+                <MenuItem Header="Select All"/>
+                <MenuItem Header="Deselect All"/>
+                <MenuItem Header="Select Children"/>
+                <MenuItem Header="Select Prefab Root"/>
+                <MenuItem Header="Invert Selection"/>
+                <MenuItem Header="Selection Groups">
+                    <MenuItem Header="Load Selection 1"/>
+                    <MenuItem Header="Load Selection 2"/>
+                    <MenuItem Header="Load Selection 3"/>
+                    <MenuItem Header="Load Selection 4"/>
+                    <MenuItem Header="Load Selection 5"/>
+                    <MenuItem Header="Load Selection 6"/>
+                    <MenuItem Header="Load Selection 7"/>
+                    <MenuItem Header="Load Selection 8"/>
+                    <MenuItem Header="Load Selection 9"/>
+                    <MenuItem Header="Load Selection 0"/>
+                    <Separator/>
+                    <MenuItem Header="Save Selection 1"/>
+                    <MenuItem Header="Save Selection 2"/>
+                    <MenuItem Header="Save Selection 3"/>
+                    <MenuItem Header="Save Selection 4"/>
+                    <MenuItem Header="Save Selection 5"/>
+                    <MenuItem Header="Save Selection 6"/>
+                    <MenuItem Header="Save Selection 7"/>
+                    <MenuItem Header="Save Selection 8"/>
+                    <MenuItem Header="Save Selection 9"/>
+                    <MenuItem Header="Save Selection 0"/>
+                </MenuItem>
+                <Separator/>
+                <MenuItem Header="Cut"/>
+                <MenuItem Header="Copy"/>
+                <MenuItem Header="Paste"/>
+                <MenuItem Header="Paste Special">
+                    <MenuItem Header="Paste as Child (Keep Local Transform)"/>
+                    <MenuItem Header="Paste as Child (Keep World Transform)"/>
+                </MenuItem>
+                <Separator/>
+                <MenuItem Header="Duplicate"/>
+                <MenuItem Header="Rename"/>
+                <MenuItem Header="Delete"/>
+                <Separator/>
+                <MenuItem Header="Frame Selected in Scene"/>
+                <MenuItem Header="Frame Selected in Window under Cursor"/>
+                <MenuItem Header="Lock View to Selected"/>
+                <Separator/>
+                <MenuItem Header="Search">
+                    <MenuItem Header="Find"/>
+                    <MenuItem Header="Find All"/>
+                    <MenuItem Header="Search All"/>
+                </MenuItem>
+                <Separator/>
+                <MenuItem Header="Play"/>
+                <MenuItem Header="Pause"/>
+                <MenuItem Header="Step"/>
+                <Separator/>
+                <MenuItem Header="Project Settings..."/>
+                <MenuItem Header="Preferences..."/>
+                <MenuItem Header="Shortcuts..."/>
+                <MenuItem Header="Clear All PlayerPrefs"/>
+                <Separator/>
+                <MenuItem Header="Lighting">
+                    <MenuItem Header="Generate Lighting"/>
+                    <MenuItem Header="Bake Reflection Probes"/>
+                    <MenuItem Header="Clear Baked Data"/>
+                </MenuItem>
+                <MenuItem Header="Graphics Tier">
+                    <MenuItem Header="Shader Hardware Tier 1"/>
+                    <MenuItem Header="Shader Hardware Tier 2"/>
+                    <MenuItem Header="Shader Hardware Tier 3"/>
+                </MenuItem>
+                <MenuItem Header="Rendering">
+                    <MenuItem Header="Generate Core CommandBuffers"/>
+                    <MenuItem Header="Materials">
+                      <MenuItem Header="Selected Built-in Materials to URP "/>
+                    </MenuItem>
+                    <MenuItem Header="Generate Shader Includes"/>
+                    <MenuItem Header="Convert Selected Built-in Materials to URP"/>
+                </MenuItem>
+            </MenuItem>
+
+            <!-- ASSETS MENU -->
+<MenuItem Header="_Assets">
+  <MenuItem Header="Create">
+    <MenuItem Header="Folder"/>
+    <MenuItem Header="Material"/>
+    <MenuItem Header="MonoBehaviour Script"/>
+    <MenuItem Header="Prefab Variant"/>
+    <Separator/>
+
+    <!-- 2D -->
+    <MenuItem Header="2D">
+      <MenuItem Header="Sprites">
+        <MenuItem Header="Triangle"/>
+        <MenuItem Header="Square"/>
+        <MenuItem Header="Circle"/>
+        <MenuItem Header="Capsule"/>
+        <MenuItem Header="Isometric Diamond"/>
+        <MenuItem Header="Hexagon Flat Top"/>
+        <MenuItem Header="Hexagon Point Top"/>
+        <MenuItem Header="9-Sliced"/>
+      </MenuItem>
+      <MenuItem Header="Tiles">
+        <MenuItem Header="Animated Tile"/>
+        <MenuItem Header="Rule Tile"/>
+        <MenuItem Header="Isometric Rule Tile"/>
+        <MenuItem Header="Hexagonal Rule Tile"/>
+        <MenuItem Header="Rule Override Tile"/>
+        <MenuItem Header="Advanced Rule Override Tile"/>
+        <MenuItem Header="Custom Rule Tile Script"/>
+      </MenuItem>
+      <MenuItem Header="Tile Palette">
+        <MenuItem Header="Rectangular"/>
+        <MenuItem Header="Hexagonal Flat Top"/>
+        <MenuItem Header="Hexagonal Point Top"/>
+        <MenuItem Header="Isometric"/>
+      </MenuItem>
+      <MenuItem Header="Sprite Shape Profile"/>
+      <MenuItem Header="Physics Material 2D"/>
+      <MenuItem Header="Sprite Atlas"/>
+      <MenuItem Header="Sprite Library Asset"/>
+      <MenuItem Header="Sprite Library Asset Variant"/>
+    </MenuItem>
+
+    <!-- Animation -->
+    <MenuItem Header="Animation">
+      <MenuItem Header="Animator Controller"/>
+      <MenuItem Header="Animator Override Controller"/>
+      <MenuItem Header="Avatar Mask"/>
+      <MenuItem Header="Animation Clip"/>
+      <MenuItem Header="Isometric"/>
+    </MenuItem>
+
+    <!-- Audio -->
+    <MenuItem Header="Audio">
+      <MenuItem Header="Audio Mixer"/>
+      <MenuItem Header="Audio Random Container"/>
+    </MenuItem>
+
+    <!-- Rendering -->
+    <MenuItem Header="Rendering">
+      <MenuItem Header="Material"/>
+      <MenuItem Header="Material Variant"/>
+      <MenuItem Header="Lightmap Parameters"/>
+      <MenuItem Header="Lighting Settings"/>
+      <MenuItem Header="Lens Flare"/>
+      <MenuItem Header="Render Texture"/>
+      <MenuItem Header="Custom Render Texture"/>
+      <MenuItem Header="Legacy Cubemap"/>
+      <MenuItem Header="Volume Profile"/>
+      <MenuItem Header="Lens Flare (SRP)"/>
+      <MenuItem Header="URP Asset (with 2D Renderer)"/>
+      <MenuItem Header="URP Asset (with Universal Renderer)"/>
+      <MenuItem Header="URP Renderer Feature"/>
+      <MenuItem Header="URP 2D Renderer"/>
+      <MenuItem Header="URP Universal Renderer"/>
+    </MenuItem>
+
+    <!-- Scene -->
+    <MenuItem Header="Scene">
+      <MenuItem Header="Scene"/>
+      <MenuItem Header="Scene Templates"/>
+      <MenuItem Header="Scene Template From Scene"/>
+      <MenuItem Header="Prefab"/>
+      <MenuItem Header="Prefab Variant"/>
+      <MenuItem Header="Scene Template Pipeline"/>
+    </MenuItem>
+
+    <!-- Scripting -->
+    <MenuItem Header="Scripting">
+      <MenuItem Header="MonoBehaviour Script"/>
+      <MenuItem Header="ScriptableObject Script"/>
+      <MenuItem Header="Empty C# Script"/>
+      <MenuItem Header="Playables">
+        <MenuItem Header="Playable Behaviour Script"/>
+        <MenuItem Header="Playable Asset Script"/>
+      </MenuItem>
+      <MenuItem Header="Assembly Definition"/>
+      <MenuItem Header="Assembly Definition Reference"/>
+    </MenuItem>
+
+    <!-- Search -->
+    <MenuItem Header="Search">
+      <MenuItem Header="Assets Index"/>
+      <MenuItem Header="Prefabs Index"/>
+      <MenuItem Header="Scenes Index"/>
+    </MenuItem>
+
+    <!-- Shader -->
+    <MenuItem Header="Shader">
+      <MenuItem Header="Standard Surface Shader"/>
+      <MenuItem Header="Unlit Shader"/>
+      <MenuItem Header="Image Effect Shader"/>
+      <MenuItem Header="Compute Shader"/>
+      <MenuItem Header="Ray Tracing Shader"/>
+      <MenuItem Header="Custom Render Texture"/>
+      <MenuItem Header="Shader Variant Collection"/>
+    </MenuItem>
+
+    <!-- Shader Graph -->
+    <MenuItem Header="Shader Graph">
+      <MenuItem Header="URP">
+        <MenuItem Header="Lit Shader Graph"/>
+        <MenuItem Header="Unlit Shader Graph"/>
+        <MenuItem Header="Sprite Custom Lit Shader Graph"/>
+        <MenuItem Header="Sprite Unlit Shader Graph"/>
+        <MenuItem Header="Sprite Lit Shader Graph"/>
+        <MenuItem Header="Decal Shader Graph"/>
+        <MenuItem Header="Canvas Shader Graph"/>
+        <MenuItem Header="Fullscreen Shader Graph"/>
+        <MenuItem Header="Six Way Shader Graph"/>
+      </MenuItem>
+      <MenuItem Header="Blank Shader Graph"/>
+      <MenuItem Header="BuiltIn">
+        <MenuItem Header="Lit Shader Graph"/>
+        <MenuItem Header="Unlit Shader Graph"/>
+        <MenuItem Header="Canvas Shader Graph"/>
+      </MenuItem>
+      <MenuItem Header="Sub Graph"/>
+      <MenuItem Header="Custom Render Texture"/>
+      <MenuItem Header="Custom Heatmap Values">
+        <MenuItem Header="Heatmap with Default"/>
+        <MenuItem Header="Empty Heatmap"/>
+      </MenuItem>
+    </MenuItem>
+
+    <!-- Testing -->
+    <MenuItem Header="Testing">
+      <MenuItem Header="C# Test Script"/>
+      <MenuItem Header="Test Assembly Folder"/>
+    </MenuItem>
+
+    <!-- Terrain -->
+    <MenuItem Header="Terrain">
+      <MenuItem Header="Brush"/>
+      <MenuItem Header="Terrain Layer"/>
+    </MenuItem>
+
+    <!-- Text Core -->
+    <MenuItem Header="Text Core">
+      <MenuItem Header="Font Asset">
+        <MenuItem Header="SDF"/>
+        <MenuItem Header="Bitmap"/>
+        <MenuItem Header="Color"/>
+      </MenuItem>
+      <MenuItem Header="Font Asset Variant"/>
+      <MenuItem Header="Sprite Asset"/>
+      <MenuItem Header="Text Style Sheet"/>
+      <MenuItem Header="Color Gradient"/>
+    </MenuItem>
+
+    <!-- Text Mesh Pro -->
+    <MenuItem Header="Text Mesh Pro">
+      <MenuItem Header="Font Asset">
+        <MenuItem Header="SDF"/>
+        <MenuItem Header="Bitmap"/>
+        <MenuItem Header="Color"/>
+        <MenuItem Header="Font Asset Variant"/>
+      </MenuItem>
+      <MenuItem Header="Sprite Asset"/>
+      <MenuItem Header="Style Sheet"/>
+      <MenuItem Header="Color Gradient"/>
+    </MenuItem>
+
+    <!-- Timeline -->
+    <MenuItem Header="Timeline">
+      <MenuItem Header="Signal"/>
+      <MenuItem Header="Timeline"/>
+    </MenuItem>
+
+    <!-- Text Mesh Pro -->
+    <MenuItem Header="Text Mesh Pro">
+      <MenuItem Header="Style Sheet"/>
+      <MenuItem Header="TSS Theme File"/>
+      <MenuItem Header="Default Runtime Theme FIle"/>
+      <MenuItem Header="UI Document"/>
+      <MenuItem Header="Editor Window"/>
+      <MenuItem Header="Panel Settings Asset"/>
+      <MenuItem Header="Text Settings"/>
+    </MenuItem>
+
+    <!-- Visual Scripting -->
+    <MenuItem Header="Visual Scripting">
+      <MenuItem Header="State Graph"/>
+      <MenuItem Header="Script Graph"/>
+    </MenuItem>
+
+    <!-- Physics Material -->
+    <MenuItem Header="Physics Material"/>
+    <MenuItem Header="GUI Skin"/>
+    <MenuItem Header="Custom Font"/>
+    <MenuItem Header="Input Actions"/>
+
+  </MenuItem>
+  <MenuItem Header="Show in Explorer"/>
+  <MenuItem Header="Open"/>
+  <MenuItem Header="Delete"/>
+  <MenuItem Header="Rename"/>
+  <MenuItem Header="Copy Path"/>
+  <MenuItem Header="Open Scene Additive"/>
+  <MenuItem Header="View in Package Manager"/>
+  <MenuItem Header="Import New Asset..."/>
+  <MenuItem Header="Import Package">
+    <MenuItem Header="Custom Package..."/>
+  </MenuItem>
+  <MenuItem Header="Export Package"/>
+  <MenuItem Header="Find References in Scene"/>
+  <MenuItem Header="Find References In Project"/>
+  <MenuItem Header="Select Dependencies"/>
+  <MenuItem Header="Refresh"/>
+  <MenuItem Header="Reimport"/>
+  <MenuItem Header="Reimport All"/>
+  <MenuItem Header="Extract From Prefab"/>
+  <MenuItem Header="Update UXML Schema"/>
+  <MenuItem Header="Open C# Project"/>
+  <MenuItem Header="View in Import Activity Window"/>
+  <MenuItem Header="Properties..."/>
+</MenuItem>
+
+
+            <!-- GAMEOBJECT MENU -->
+            <MenuItem Header="_GameObject">
+                <MenuItem Header="Create Empty"/>
+                <MenuItem Header="Create Empty Child"/>
+                <MenuItem Header="Create Empty Parent"/>
+                     
+                <MenuItem Header="2D Object"> 
+                  <MenuItem Header="Sprites">
+                    <MenuItem Header="Triangle"/>
+                    <MenuItem Header="Square"/>
+                    <MenuItem Header="Circle"/>
+                    <MenuItem Header="Capsule"/>
+                    <MenuItem Header="Isometric Diamond"/>
+                    <MenuItem Header="Hexagon Flat Top"/>
+                    <MenuItem Header="Hexagon Point Top"/>
+                    <MenuItem Header="9-Sliced"/>
+                  </MenuItem>
+                  <MenuItem Header="Physics">
+                    <MenuItem Header="Static Sprite"/>
+                    <MenuItem Header="Dynamic Sprite"/>
+                  </MenuItem>
+                  <MenuItem Header="Tilemap">
+                    <MenuItem Header="Rectangular"/>
+                    <MenuItem Header="Hexagonal Flat Top"/>
+                    <MenuItem Header="Hexagonal Point Top"/>
+                    <MenuItem Header="Isometric"/>
+                    <MenuItem Header="Isometric Z as Y"/>
+                  </MenuItem>
+                  <MenuItem Header="Sprite Shape">
+                    <MenuItem Header="Closed Shape"/>
+                    <MenuItem Header="Open Shape"/>
+                  </MenuItem>
+                  <MenuItem Header="Pixel Perfect Camera (URP)"/>
+                  <MenuItem Header="Sprite Mask"/>
+                </MenuItem>
+
+                <MenuItem Header="3D Object">
+                  <MenuItem Header="Cube"/>
+                  <MenuItem Header="Sphere"/>
+                  <MenuItem Header="Capsule"/>
+                  <MenuItem Header="Cylinder"/>
+                  <MenuItem Header="Plane"/>
+                  <MenuItem Header="Quad"/>
+                  <MenuItem Header="Text - TextMesh"/>
+                  <MenuItem Header="Legacy">
+                    <MenuItem Header="TextMeshPro"/>
+                  </MenuItem>
+                  <MenuItem Header="Ragdoll..."/>
+                  <MenuItem Header="Terrain"/>
+                  <MenuItem Header="Tree"/>
+                  <MenuItem Header="Wind Zone"/>
+                </MenuItem>
+
+                <MenuItem Header="Effects">
+                  <MenuItem Header="Particle System"/>
+                  <MenuItem Header="Particle System Force Field"/>
+                  <MenuItem Header="Trail"/>
+                  <MenuItem Header="Line"/>
+                </MenuItem>
+                
+                <MenuItem Header="Light">
+                  <MenuItem Header="Directional Light"/>
+                  <MenuItem Header="Point Light"/>
+                  <MenuItem Header="Spot Light"/>
+                  <MenuItem Header="Area Light"/>
+                  <MenuItem Header="Reflection Probe"/>
+                  <MenuItem Header="Sprite Light 2D"/>
+                  <MenuItem Header="Spot Light 2D"/>
+                  <MenuItem Header="Global Light 2D"/>
+                  <MenuItem Header="Freeform Light 2D">
+                    <MenuItem Header="Square"/>
+                    <MenuItem Header="Circle"/>
+                    <MenuItem Header="Isometric Diamond"/>
+                    <MenuItem Header="Hexagon Flat Top"/>
+                    <MenuItem Header="Hexagon Pointed Top"/>
+                  </MenuItem>
+
+                  <MenuItem Header="Adaptive Probe Volume"/>
+                  <MenuItem Header="Probe Adjustment Volume"/>
+                  <MenuItem Header="Light Probe Group"/>
+                </MenuItem>
+
+                <MenuItem Header="Audio">
+                  <MenuItem Header="Audio Source"/>
+                  <MenuItem Header="Audio Reverb Zone"/>
+                </MenuItem>
+                
+                <MenuItem Header="Video">
+                  <MenuItem Header="Video Player"/>
+                </MenuItem>
+                
+                <MenuItem Header="UI">
+                  <MenuItem Header="Image"/>
+                  <MenuItem Header="Text - TextMeshPro"/>
+                  <MenuItem Header="Raw Image"/>
+                  <MenuItem Header="Panel"/>
+                  <MenuItem Header="Toggle"/>
+                  <MenuItem Header="Slider"/>
+                  <MenuItem Header="Scrollbar"/>
+                  <MenuItem Header="Scroll View"/>
+                  <MenuItem Header="Button - TextMeshPro"/>
+                  <MenuItem Header="Dropdown - TextMeshPro"/>
+                  <MenuItem Header="Input Field - TextMeshPro"/>
+                  <MenuItem Header="Canvas"/>
+                  <MenuItem Header="Event System"/>
+                  <MenuItem Header="Legacy">
+                    <MenuItem Header="Text"/>
+                    <MenuItem Header="Button"/>
+                    <MenuItem Header="Dropdown"/>
+                    <MenuItem Header="Input Field"/>
+                  </MenuItem>
+                </MenuItem>
+
+                <MenuItem Header="UI Toolkit">
+                  <MenuItem Header="UI Document"/>
+                </MenuItem>
+
+                <MenuItem Header="Rendering">
+                  <MenuItem Header="URP Decal Projector"/>
+                </MenuItem>
+
+                <MenuItem Header="Volume">
+                  <MenuItem Header="Global Volume"/>
+                  <MenuItem Header="Box Volume"/>
+                  <MenuItem Header="Sphere Volume"/>
+                  <MenuItem Header="Convex Mesh Volume"/>
+                </MenuItem>
+                
+
+                <MenuItem Header="Camera"/>
+                <Separator/>
+
+                <MenuItem Header="Visual Scripting Scene Variables"/>
+                <Separator/>
+                <MenuItem Header="Center On Children"/>
+                <MenuItem Header="Make Parent"/>
+                <MenuItem Header="Clear Parent"/>
+                <MenuItem Header="Set as first sibling"/>
+                <MenuItem Header="Set as last sibling"/>
+                <MenuItem Header="Move To View"/>
+                <MenuItem Header="Align With View"/>
+                <MenuItem Header="Align View to Selected"/>
+                <MenuItem Header="Toggle Active State"/>
+            </MenuItem>
+
+            <!-- COMPONENT MENU -->
+            <MenuItem Header="_Component">
+                <MenuItem Header="Add..."/>
+                <MenuItem Header="Mesh">
+                  <MenuItem Header="Mesh Filter"/>
+                  <MenuItem Header="Mesh Renderer"/>
+                  <MenuItem Header="Skinned Mesh Renderer"/>
+                  <MenuItem Header="Legacy">
+                    <MenuItem Header="Text Mesh"/>
+                  </MenuItem>
+                  <MenuItem Header="TextMeshPro - Text"/>
+                </MenuItem>
+                <MenuItem Header="Effects">
+                  <MenuItem Header="Particle System"/>
+                  <MenuItem Header="Trail Renderer"/>
+                  <MenuItem Header="Line Renderer"/>
+                  <MenuItem Header="Lens Flare"/>
+                  <MenuItem Header="Halo"/>
+                  <MenuItem Header="Projector"/>
+                  <MenuItem Header="Visual Effect"/>
+                </MenuItem>
+                <MenuItem Header="Physics">
+                  <MenuItem Header="Rigidbody"/>
+                  <MenuItem Header="Character Controller"/>
+                  <MenuItem Header="Box Collider"/>
+                  <MenuItem Header="Sphere Collider"/>
+                  <MenuItem Header="Capsule Collider"/>
+
+                  <MenuItem Header="Mesh Collider"/>
+                  <MenuItem Header="Wheel Collider"/>
+                  <MenuItem Header="Terrain Collider"/>
+                  <MenuItem Header="Cloth"/>
+                  <MenuItem Header="Articulation Body"/>
+                  <MenuItem Header="Hinge Joint"/>
+                  <MenuItem Header="Fixed Joint"/>
+                  <MenuItem Header="Spring Joint"/>
+                  <MenuItem Header="Character Joint"/>
+                  <MenuItem Header="Configurable Joint"/>
+                  <MenuItem Header="Constants Force"/>
+                </MenuItem>
+                <MenuItem Header="Physics 2D">
+                  <MenuItem Header="Rigidbody 2D"/>
+                  <MenuItem Header="Box Collider 2D"/>
+                  <MenuItem Header="Circle Collider 2D"/>
+                  <MenuItem Header="Edge Collider 2D"/>
+                  <MenuItem Header="Polygon Collider 2D"/>
+                  <MenuItem Header="Capsule Collider 2D"/>
+                  <MenuItem Header="Composite Collider 2D"/>
+                  <MenuItem Header="Custom Collider 2D"/>
+                  <MenuItem Header="Distance Joint 2D"/>
+                  <MenuItem Header="Fixed Joint 2D"/>
+                  <MenuItem Header="Friction Joint 2D"/>
+                  <MenuItem Header="Hinge Joint 2D"/>
+                  <MenuItem Header="Relative Joint 2D"/>
+                  <MenuItem Header="Slider Joint 2D"/>
+                  <MenuItem Header="Spring Joint 2D"/>
+                  <MenuItem Header="Target Joint 2D"/>
+                  <MenuItem Header="Wheel Joint 2D"/>
+                  <MenuItem Header="Area Effector 2D"/>
+                  <MenuItem Header="Buoyancy Effector 2D"/>
+                  <MenuItem Header="Point Effector 2D"/>
+                  <MenuItem Header="Platform Effector 2D"/>
+                  <MenuItem Header="Surface Effector 2D"/>
+                  <MenuItem Header="Constant Force 2D"/>
+                </MenuItem>
+                <MenuItem Header="Navigation">
+                  <MenuItem Header="Nav Mesh Agent"/>
+                  <MenuItem Header="Nav Mesh Obstacle"/>
+                </MenuItem>
+                <MenuItem Header="Audio">
+                  <MenuItem Header="Audio Listener"/>
+                  <MenuItem Header="Audio Source"/>
+                  <MenuItem Header="Audio Reverb Zone"/>
+                  <MenuItem Header="Audio Low Pass Filter"/>
+                  <MenuItem Header="Audio High Pass Filter"/>
+                  <MenuItem Header="Audio Echo Filter"/>
+                  <MenuItem Header="Audio Distortion Filter"/>
+                  <MenuItem Header="Audio Reverb Filter"/>
+                  <MenuItem Header="Audio Chorus Filter"/>
+                </MenuItem>
+                <MenuItem Header="Video">
+                  <MenuItem Header="Video Player"/>
+                </MenuItem>
+                <MenuItem Header="Rendering">
+                  <MenuItem Header="Camera"/>
+                  <MenuItem Header="Streaming Controller"/>
+                  <MenuItem Header="Skybox"/>
+                  <MenuItem Header="Flare Layer"/>
+                  <MenuItem Header="Light"/>
+                  <MenuItem Header="Light Probe Group"/>
+                  <MenuItem Header="Light Probe Proxy Volume"/>
+                  <MenuItem Header="Reflection Probe"/>
+                  <MenuItem Header="Occlusion Portal"/>
+                  <MenuItem Header="LOD Group"/>
+                  <MenuItem Header="Sprite Renderer"/>
+                  <MenuItem Header="Sorting Group"/>
+                  <MenuItem Header="Canvas Renderer"/>
+                  <MenuItem Header="Light Anchor"/>
+                  <MenuItem Header="Lens Flare (SRP)"/>
+                  <MenuItem Header="Probe Abjustment Volume"/>
+                  <MenuItem Header="Adaptive Probe Volume"/>
+                  <MenuItem Header="2D">
+                    <MenuItem Header="Composite Shadow Caster 2D"/>
+                    <MenuItem Header="Light 2D"/>
+                    <MenuItem Header="Pixel Perfect Camera"/>
+                    <MenuItem Header="Shadow Caster 2D"/>
+                  </MenuItem>
+                  <MenuItem Header="URP Decal Projector"/>
+                </MenuItem>
+                <MenuItem Header="Tilemap">
+                  <MenuItem Header="Tilemap"/>
+                  <MenuItem Header="Tilemap Renderer"/>
+                  <MenuItem Header="Tilemap Collider 2D"/>
+                  <MenuItem Header="Grid Information"/>
+                </MenuItem>
+                <MenuItem Header="Layout">
+                  <MenuItem Header="Rect Transform"/>
+                  <MenuItem Header="Canvas"/>
+                  <MenuItem Header="Canvas Group"/>
+                  <MenuItem Header="Canvas Scaler"/>
+                  <MenuItem Header="Layout Element"/>
+                  <MenuItem Header="Content Size Fitter"/>
+                  <MenuItem Header="Aspect Ratio Fitter"/>
+                  <MenuItem Header="Horizontal Layout Group"/>
+                  <MenuItem Header="Grid Layout Group"/>
+                </MenuItem>
+                <MenuItem Header="Playables">
+                  <MenuItem Header="Playable Director"/>
+                </MenuItem>
+                <MenuItem Header="Miscellaneous">
+                  <MenuItem Header="Particle System Force Field"/>
+                  <MenuItem Header="Grid"/>
+                  <MenuItem Header="Sprite Mask"/>
+                  <MenuItem Header="Terrain"/>
+                  <MenuItem Header="Billboard Renderer"/>
+                  <MenuItem Header="Wind Zone"/>
+                  <MenuItem Header="Animator"/>
+                  <MenuItem Header="Aim Constraint"/>
+                  <MenuItem Header="Position Constraint"/>
+                </MenuItem>
+                <MenuItem Header="Scripts">
+                  <MenuItem Header="TMPro">
+                    <MenuItem Header="Text Container"/>
+                    <MenuItem Header="TMP_Scrollbar Event Handler"/>
+                    <MenuItem Header="TMP_Selection Caret"/>
+                    <MenuItem Header="TMP_Sprite Animator"/>
+                    <MenuItem Header="TMP_Sub Mash"/>
+                    <MenuItem Header="TMP_Sub Mesh UI"/>
+                  </MenuItem>
+                  <MenuItem Header="FW.PerformanceTesting">
+                    <MenuItem Header="Performance Test Helper"/>
+                  </MenuItem>
+                  <MenuItem Header="FW.PerformanceTesting.Measurements">
+                    <MenuItem Header="FrameTime Measurements"/>
+                    <MenuItem Header="Profiler Marker Measurements"/>
+                  </MenuItem>
+                  <MenuItem Header="FW.EventSystems">
+                    <MenuItem Header="Base Input"/>
+                  </MenuItem>
+                  <MenuItem Header="FW.InputSystem.UI">
+                    <MenuItem Header="Base Input Override"/>
+                    <MenuItem Header="Input System UI Input Module"/>
+                    <MenuItem Header="Multiplayer Event System"/>
+                  </MenuItem>
+                  <MenuItem Header="FW.Rendering">
+                    <MenuItem Header="Camera Switcher"/>
+                    <MenuItem Header="Debug Updater"/>
+                    <MenuItem Header="Disallow GPU Driven Rendering"/>
+                    <MenuItem Header="Disallow Small Mesh Culling"/>
+                    <MenuItem Header="Free Camera"/>
+                    <MenuItem Header="Scene Render Pipeline"/>
+                  </MenuItem>
+                  <MenuItem Header="FW.Rendering.UI">
+                    <MenuItem Header="Debug UI Handler Bit Field"/>
+                    <MenuItem Header="Debug UI Handler Button"/>
+                    <MenuItem Header="Debug UI Handler Canvas"/>
+                    <MenuItem Header="Debug UI Handler Color"/>
+                    <MenuItem Header="Debug UI Handler Container"/>
+                    <MenuItem Header="Debug UI Handler Enum Field"/>
+                    <MenuItem Header="Debug UI Handler Enum History"/>
+                    <MenuItem Header="Debug UI Handler Float Field"/>
+                    <MenuItem Header="Debug UI Handler Foldout"/>
+                    <MenuItem Header="Debug UI Handler Group"/>
+                    <MenuItem Header="Debug UI Handler H Box"/>
+                    <MenuItem Header="Debug UI Handler Indirect Float Field"/>
+                    <MenuItem Header="Debug UI Handler Indirect Toggle"/>
+                    <MenuItem Header="Debug UI Handler Int Field"/>
+                    <MenuItem Header="Debug UI Handler Message Box"/>
+                    <MenuItem Header="Debug UI Handler Object"/>
+                    <MenuItem Header="Debug UI Handler Object List"/>
+                    <MenuItem Header="Debug UI Handler Object Popup Field"/>
+                    <MenuItem Header="Debug UI Handler Panel"/>
+                    <MenuItem Header="Debug UI Handler Persistent Canvas"/>
+                    <MenuItem Header="Debug UI Handler Progress Bar"/>
+                    <MenuItem Header="Debug UI Handler Rendering Layer Field"/>
+                    <MenuItem Header="Debug UI Handler Row"/>
+                    <MenuItem Header="Debug UI Handler Toggle"/>
+                    <MenuItem Header="Debug UI Handler Toggle History"/>
+                    <MenuItem Header="Debug UI Handler U Int Field"/>
+                    <MenuItem Header="Debug UI Handler Value"/>
+                    <MenuItem Header="Debug UI Handler Value Tuple"/>
+                    <MenuItem Header="Debug UI Handler V Box"/>
+                    <MenuItem Header="Debug UI Handler Vector 2"/>
+                    <MenuItem Header="Debug UI Handler Vector 3"/>
+                    <MenuItem Header="Debug UI Handler Vector 4"/>
+                    <MenuItem Header="Debug UI Handler Widget"/>
+                    <MenuItem Header="UI Foldout"/>
+                  </MenuItem>
+                  <MenuItem Header="FW.Rendering.Universal">
+                    <MenuItem Header="Universal Additional Camera Data"/>
+                    <MenuItem Header="Universal Additional Light Data"/>
+                  </MenuItem>
+                  <MenuItem Header="FW.TestTools.TestRunner.Callbacks">
+                    <MenuItem Header="Player Quit Handler"/>
+                    <MenuItem Header="Test Result Renderer Callback"/>
+                  </MenuItem>
+                  <MenuItem Header="FW.Timeline">
+                    <MenuItem Header="Signal Receiver"/>
+                  </MenuItem>
+                  <MenuItem Header="FW.U2D">
+                    <MenuItem Header="Sprite Shape Controller"/>
+                    <MenuItem Header="Sprite Shape Object Placement"/>
+                  </MenuItem>
+                  <MenuItem Header="FW.U2D.IK">
+                    <MenuItem Header="CCD Solver 2D"/>
+                    <MenuItem Header="Culling Manager"/>
+                    <MenuItem Header="Fabrik Solver 2D"/>
+                    <MenuItem Header="IK Manager 2D"/>
+                    <MenuItem Header="Limb Solver 2D"/>
+                  </MenuItem>
+                </MenuItem>
+                <MenuItem Header="UI">
+                    <MenuItem Header="Legacy">
+                      <MenuItem Header="Text"/>
+                      <MenuItem Header="Dropdown"/>
+                      <MenuItem Header="Input FIeld"/>
+                    </MenuItem>
+                    <MenuItem Header="Effects">
+                      <MenuItem Header="Shadow"/>
+                      <MenuItem Header="Outline"/>
+                      <MenuItem Header="Position As UV1"/>
+                    </MenuItem>
+                    <MenuItem Header="TextMeshPro - Text (UI)"/>
+                    <MenuItem Header="TextMeshPro - Input Field"/>
+                    <MenuItem Header="Image"/>
+                    <MenuItem Header="Raw Image"/>
+                    <MenuItem Header="Mask"/>
+                    <MenuItem Header="Rect Mask 2D"/>
+                    <MenuItem Header="Button"/>
+                    <MenuItem Header="Toggle"/>
+                    <MenuItem Header="Toggle Group"/>
+                    <MenuItem Header="Slider"/>
+                    <MenuItem Header="Dropdown - TextMeshPro"/>
+                    <MenuItem Header="Selectable"/>
+                    <MenuItem Header="Scrollbar"/>
+                    <MenuItem Header="Scroll Rect"/>
+                  </MenuItem>
+
+                <MenuItem Header="Visual Scripting">
+                  <MenuItem Header="Listeners">
+                    <MenuItem Header="Animator Message Listener"/>
+                  </MenuItem>
+                  <MenuItem Header="Script Machine"/>
+                  <MenuItem Header="State Machine"/>
+                  <MenuItem Header="Variables"/>
+                </MenuItem>
+                <MenuItem Header="Event">
+                  <MenuItem Header="Event System"/>
+                  <MenuItem Header="Event Trigger"/>
+                  <MenuItem Header="Physics 2D Raycaster"/>
+                  <MenuItem Header="Standalone Input Module"/>
+                  <MenuItem Header="Touch Input Module"/>
+                  <MenuItem Header="Tracked Device Raycaster"/>
+                  <MenuItem Header="Graphic Raycaster"/>
+                </MenuItem>
+                <MenuItem Header="Input">
+                  <MenuItem Header="Player Input"/>
+                  <MenuItem Header="Player Input Manager"/>
+                  <MenuItem Header="Debug">
+                    <MenuItem Header="Touch Simulation"/>
+                  </MenuItem>
+                  <MenuItem Header="On-Screen Button"/>
+                  <MenuItem Header="On-Screen Stick"/>
+                  <MenuItem Header="Virtual Mouse"/>
+                </MenuItem>
+                <MenuItem Header="XR">
+                  <MenuItem Header="Tracked Pose Driver (Input System)"/>
+                </MenuItem>
+                <MenuItem Header="2D Animation">
+                  <MenuItem Header="Sprite Library"/>
+                  <MenuItem Header="Sprite Resolver"/>
+                  <MenuItem Header="Sprite Skin"/>
+                </MenuItem>
+                <MenuItem Header="UI Toolkit">
+                  <MenuItem Header="Panel Event Handler (UI Toolkit)"/>
+                  <MenuItem Header="Panel Raycaster (UI Toolkit)"/>
+                  <MenuItem Header="UI Document"/>
+                </MenuItem>
+            </MenuItem>
+
+            <!-- SERVICES MENU -->
+            <MenuItem Header="_Services">
+                <MenuItem Header="Sign in..."/>
+                <MenuItem Header="Sign out"/>
+                <Separator/>
+                <MenuItem Header="Explore"/>
+                <MenuItem Header="General Settings"/>
+            </MenuItem>
+
+            <!-- JOBS MENU -->
+            <MenuItem Header="_Jobs">
+                <MenuItem Header="Burst">
+                  <MenuItem Header="Enable Compilation"/>
+                  <MenuItem Header="Safety Checks">
+                    <MenuItem Header="Off"/>
+                    <MenuItem Header="On"/>
+                    <MenuItem Header="Force On"/>
+                  </MenuItem>
+                  <MenuItem Header="Synchronous Compilation"/>
+                  <MenuItem Header="Native Debug Mode Compilation"/>
+                  <MenuItem Header="Show Timings..."/>
+                  <MenuItem Header="Open Inspector..."/>
+                </MenuItem>                
+            </MenuItem>
+
+            <!-- WINDOW MENU -->
+            <MenuItem Header="_Window">
+                <MenuItem Header="Panels">
+                  <MenuItem Header="Close all floating panels..."/>
+                  <MenuItem Header="1 Console"/>
+                  <MenuItem Header="2 Hierarchy"/>
+                  <MenuItem Header="3 Inspector"/>
+                  <MenuItem Header="4 Project"/>
+                  <MenuItem Header="5 Scene"/>
+                  <MenuItem Header="6 Simulator"/>
+                </MenuItem>
+                <MenuItem Header="Next Window"/>
+                <MenuItem Header="Previous Window"/>
+                <MenuItem Header="Layouts">
+                  <MenuItem Header="2 by 3"/>
+                  <MenuItem Header="4 Split"/>
+                  <MenuItem Header="Default"/>
+                  <MenuItem Header="Tall"/>
+                  <MenuItem Header="Wide"/>
+                  <MenuItem Header="Save Layout..."/>
+                  <MenuItem Header="Save Layout to File..."/>
+                  <MenuItem Header="Load Layout from File..."/>
+                  <MenuItem Header="Delete Layout">
+                    <MenuItem Header="2 by 3"/>
+                    <MenuItem Header="4 Split"/>
+                    <MenuItem Header="Default"/>
+                    <MenuItem Header="Tall"/>
+                    <MenuItem Header="Wide"/>
+                  </MenuItem>
+                  <MenuItem Header="Reset All Layouts"/>
+                </MenuItem>
+                <MenuItem Header="Multiplier">
+                  <MenuItem Header="Multiplayer Center"/>
+                </MenuItem>
+                <MenuItem Header="Unity Version Control"/>
+                <Separator/>
+                <MenuItem Header="Search">
+                  <MenuItem Header="New Window"/>
+                  <MenuItem Header="Index Manager"/>
+                  <MenuItem Header="Scene"/>
+                  <MenuItem Header="Find FIles"/>
+                  <MenuItem Header="Asset Store"/>
+                  <MenuItem Header="Asset Database"/>
+                </MenuItem>
+                <MenuItem Header="Asset Store"/>
+                <MenuItem Header="My Assets"/>
+                <MenuItem Header="Package Manager"/>
+                <MenuItem Header="Text">
+                  <MenuItem Header="Font Asset Creator"/>
+                  <MenuItem Header="Sprite Importer"/>
+                </MenuItem>
+                <MenuItem Header="TextMeshPro">
+                  <MenuItem Header="Font Asset Creator"/>
+                  <MenuItem Header="Sprite Importer"/>
+                  <MenuItem Header="Import TMP Essential Resources"/>
+                  <MenuItem Header="Import TMP Examples and Extras"/>
+                  <MenuItem Header="Project Files GUID Remapping Tool"/>
+                  <MenuItem Header="Project Text Spacing Conversion Tool"/>
+                </MenuItem>
+                <MenuItem Header="General">
+                  <MenuItem Header="Scene"/>
+                  <MenuItem Header="Game"/>
+                  <MenuItem Header="Inspector"/>
+                  <MenuItem Header="Hierarchy"/>
+                  <MenuItem Header="Project"/>
+                  <MenuItem Header="Console"/>
+                  <MenuItem Header="Progress"/>
+                  <MenuItem Header="Test Runner"/>
+                  <MenuItem Header="Performance Test Report"/>
+                  <MenuItem Header="Device Simulator"/>
+                </MenuItem>
+                <MenuItem Header="Rendering">
+                  <MenuItem Header="Lighting"/>
+                  <MenuItem Header="Light Explorer"/>
+                  <MenuItem Header="Render Pipeline Converter"/>
+                  <MenuItem Header="Occlusion Culling"/>
+                  <MenuItem Header="Look Dev"/>
+                </MenuItem>
+                <MenuItem Header="Animation">
+                  <MenuItem Header="Animation"/>
+                  <MenuItem Header="Animator"/>
+                  <MenuItem Header="Animator Parameter"/>
+                </MenuItem>
+                <MenuItem Header="Audio">
+                  <MenuItem Header="Audio Random Container"/>
+                  <MenuItem Header="Audio Mixer"/>
+                </MenuItem>
+                <MenuItem Header="Sequencing">
+                  <MenuItem Header="Timeline"/>
+                </MenuItem>
+                <MenuItem Header="Analysis">
+                  <MenuItem Header="Profiler"/>
+                  <MenuItem Header="Profiler (Standalone Process)"/>
+                  <MenuItem Header="Frame Debugger"/>
+                  <MenuItem Header="Physics Debugger"/>
+                  <MenuItem Header="Import Activity"/>
+                  <MenuItem Header="Performance Markers"/>
+                  <MenuItem Header="Input Debugger"/>
+                  <MenuItem Header="Rendering Debugger"/>
+                  <MenuItem Header="Render Graph Viewer"/>
+                  <MenuItem Header="IMGUI Debugger"/>
+                </MenuItem>
+                <MenuItem Header="Asset Management">
+                  <MenuItem Header="Version Control"/>
+                </MenuItem>
+                <MenuItem Header="Accessibility">
+                  <MenuItem Header="Hierarchy Viewer"/>
+                </MenuItem>
+                <MenuItem Header="2D">
+                  <MenuItem Header="Sprite Editor"/>
+                  <MenuItem Header="Tile Palette"/>
+                  <MenuItem Header="2D Animation Asset Upgrader"/>
+                  <MenuItem Header="Light Batching Debugger"/>
+                  <MenuItem Header="Sprite Library Editor"/>
+                </MenuItem>
+                <MenuItem Header="UI Toolkit">
+                  <MenuItem Header="UI Builder"/>
+                  <MenuItem Header="Samples"/>
+                  <MenuItem Header="Debugger"/>
+                </MenuItem>
+                <MenuItem Header="Visual Scripting"/>
+            </MenuItem>
+
+            <!-- HELP MENU -->
+            <MenuItem Header="_Help">
+                <MenuItem Header="About Unity"/>
+                <MenuItem Header="Unity Manual"/>
+                <MenuItem Header="Scripting Reference"/>
+                <MenuItem Header="Unity Learn"/>
+                <MenuItem Header="Unity Services"/>
+                <MenuItem Header="Unity Forum"/>
+                <MenuItem Header="Unity Discussions"/>
+                <MenuItem Header="Unity Feedback"/>
+                <Separator/>
+                <MenuItem Header="Download Beta..."/>
+                <MenuItem Header="Manage License"/>
+                <MenuItem Header="Release Notes"/>
+                <MenuItem Header="Software Licenses"/>
+                <MenuItem Header="Package Manager Licenses"/>
+                <MenuItem Header="Report a Bug..."/>
+            </MenuItem>
+        </Menu>
+    </Grid>
+</UserControl>
